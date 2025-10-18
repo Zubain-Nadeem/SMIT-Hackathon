@@ -1,11 +1,67 @@
 // src/Pages/CreatePitch.jsx
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import PitchForm from "../Components/PitchForm"; // Optional reusable form component
 
 const CreatePitch = () => {
+  const navigate = useNavigate();
+  const [idea, setIdea] = useState("");
+  const [description, setDescription] = useState("");
+  const [tone, setTone] = useState("formal"); // optional: formal/fun
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // For now, log the input
+    console.log({ idea, description, tone });
+    // Redirect to GeneratedPitch page (temporary)
+    navigate("/pitch/1");
+  };
+
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Create Pitch Page</h1>
-      {/* Your PitchForm component will go here later */}
+    <div className="min-h-screen bg-gray-100 p-6">
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Create a New Pitch</h1>
+
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto flex flex-col gap-4"
+      >
+        <label className="text-gray-700 font-semibold">Startup Idea</label>
+        <input
+          type="text"
+          placeholder="Enter your startup idea"
+          value={idea}
+          onChange={(e) => setIdea(e.target.value)}
+          className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          required
+        />
+
+        <label className="text-gray-700 font-semibold">Short Description</label>
+        <textarea
+          placeholder="Describe your idea briefly"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          rows={4}
+          required
+        ></textarea>
+
+        <label className="text-gray-700 font-semibold">Tone (optional)</label>
+        <select
+          value={tone}
+          onChange={(e) => setTone(e.target.value)}
+          className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          <option value="formal">Formal</option>
+          <option value="fun">Fun</option>
+        </select>
+
+        <button
+          type="submit"
+          className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition mt-4"
+        >
+          Generate Pitch
+        </button>
+      </form>
     </div>
   );
 };
