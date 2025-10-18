@@ -1,4 +1,3 @@
-// src/Auth/Login.jsx
 import React, { useState } from "react";
 import { auth, provider } from "../Config/firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
@@ -29,23 +28,23 @@ const Login = () => {
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
-      setError("Email or password incorrect.");
+      setError("Invalid email or password.");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm text-center">
-        <h1 className="text-2xl font-bold mb-6 text-gray-800">PitchCraft Login</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-950 text-white">
+      <div className="bg-gray-900 p-8 rounded-2xl shadow-lg w-full max-w-md">
+        <h1 className="text-3xl font-bold text-center mb-2">Welcome Back</h1>
+        <p className="text-center text-gray-400 mb-6">Login to continue to PitchCraft</p>
 
-        {/* Email/Password form */}
-        <form onSubmit={handleEmailLogin} className="flex flex-col gap-3">
+        <form onSubmit={handleEmailLogin} className="flex flex-col gap-4">
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
           />
           <input
@@ -53,39 +52,37 @@ const Login = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+            className="w-full py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition"
           >
             Login
           </button>
         </form>
 
-        <div className="my-4 text-gray-500">or</div>
+        <div className="my-5 text-center text-gray-500">or</div>
 
-        {/* Google login */}
         <button
           onClick={handleGoogleLogin}
-          className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+          className="w-full py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition"
         >
-          Sign in with Google
+          Continue with Google
         </button>
 
-        {/* Link to Register */}
-        <p className="mt-4 text-gray-500">
+        <p className="mt-6 text-center text-gray-400 text-sm">
           Don’t have an account?{" "}
           <span
-            className="text-blue-500 cursor-pointer hover:underline"
             onClick={() => navigate("/register")}
+            className="text-indigo-400 font-semibold hover:underline cursor-pointer"
           >
             Sign up
           </span>
         </p>
 
-        {error && <p className="text-red-500 mt-2">{error}</p>}
+        {error && <p className="text-red-500 mt-3 text-center">{error}</p>}
       </div>
     </div>
   );
