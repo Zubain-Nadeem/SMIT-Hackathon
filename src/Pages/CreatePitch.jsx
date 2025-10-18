@@ -1,20 +1,28 @@
 // src/Pages/CreatePitch.jsx
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import PitchForm from "../Components/PitchForm"; // Optional reusable form component
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { generatePitch } from '../Utils/aiService';
 
 const CreatePitch = () => {
   const navigate = useNavigate();
-  const [idea, setIdea] = useState("");
-  const [description, setDescription] = useState("");
-  const [tone, setTone] = useState("formal"); // optional: formal/fun
+  const [idea, setIdea] = useState('');
+  const [description, setDescription] = useState('');
+  const [tone, setTone] = useState('formal');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // For now, log the input
-    console.log({ idea, description, tone });
-    // Redirect to GeneratedPitch page (temporary)
-    navigate("/pitch/1");
+    setLoading(true);
+
+    const pitch = await generatePitch(idea, description, tone);
+
+    setLoading(false);
+
+    if (pitch) {
+      navigate('/pitch/1', { state: { pitch } });
+    } else {
+      alert('Failed to generate pitch. Try again.');
+    }
   };
 
   return (
@@ -58,8 +66,9 @@ const CreatePitch = () => {
         <button
           type="submit"
           className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition mt-4"
+          disabled={loading}
         >
-          Generate Pitch
+          {loading ? 'Generating...' : 'Generate Pitch'}
         </button>
       </form>
     </div>
