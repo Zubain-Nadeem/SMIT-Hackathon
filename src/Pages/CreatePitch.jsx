@@ -1,27 +1,41 @@
 // src/Pages/CreatePitch.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { generatePitch } from '../Utils/aiService';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { generatePitch } from "../Utils/aiService";
+import { savePitch } from "../Utils/firebaseService";
+import { auth } from "../Config/firebase";
 
 const CreatePitch = () => {
   const navigate = useNavigate();
-  const [idea, setIdea] = useState('');
-  const [description, setDescription] = useState('');
-  const [tone, setTone] = useState('formal');
+  const [idea, setIdea] = useState("");
+  const [description, setDescription] = useState("");
+  const [tone, setTone] = useState("formal");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
+    // Call AI to generate pitch
     const pitch = await generatePitch(idea, description, tone);
 
-    setLoading(false);
-
     if (pitch) {
-      navigate('/pitch/1', { state: { pitch } });
+      // Save pitch to Firebase
+      const userId = auth.currentUser?.uid;
+      if (userId) {
+        try {
+          await savePitch(userId, pitch);
+        } catch (err) {
+          console.error("Failed to save pitch:", err);
+        }
+      }
+
+      setLoading(false);
+      // Navigate to GeneratedPitch page with pitch data
+      navigate(`/pitch/${Date.now()}`, { state: { pitch } });
     } else {
-      alert('Failed to generate pitch. Try again.');
+      setLoading(false);
+      alert("Failed to generate pitch. Try again.");
     }
   };
 
@@ -51,7 +65,7 @@ const CreatePitch = () => {
           className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
           rows={4}
           required
-        ></textarea>
+        />
 
         <label className="text-gray-700 font-semibold">Tone (optional)</label>
         <select
@@ -68,7 +82,7 @@ const CreatePitch = () => {
           className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition mt-4"
           disabled={loading}
         >
-          {loading ? 'Generating...' : 'Generate Pitch'}
+          {loading ? "Generating..." : "Generate Pitch"}
         </button>
       </form>
     </div>
