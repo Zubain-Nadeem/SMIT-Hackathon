@@ -5,6 +5,7 @@ import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import Dashboard from "./Pages/Dashboard";
 import CreatePitch from "./Pages/CreatePitch";
+import LandingPage from "./Pages/LandingPage";
 import GeneratedPitch from "./Pages/GeneratedPitch";
 
 // Components
@@ -46,6 +47,8 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="/landing/:pitchId" element={<LandingPage />} />
+
         </Routes>
       </div>
     </Router>

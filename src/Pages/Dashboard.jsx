@@ -13,7 +13,6 @@ const Dashboard = () => {
     const fetchData = async () => {
       const user = auth.currentUser;
       if (!user) {
-        console.warn("No user found. Try logging in again.");
         setLoading(false);
         return;
       }
@@ -28,57 +27,58 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-950 text-gray-300">
+      <div className="min-h-screen flex items-center justify-center bg-gray-900 text-gray-400">
         Loading your pitches...
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 px-6 py-8">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-10 border-b border-gray-800 pb-4">
-        <h1 className="text-3xl font-bold tracking-tight">Your Pitches</h1>
+    <div className="min-h-screen bg-gray-950 text-white p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">Your Pitches</h1>
         <button
           onClick={() => navigate("/create")}
-          className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-500 transition"
+          className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg text-white transition"
         >
           + Create New Pitch
         </button>
       </div>
 
-      {/* Pitch List */}
       {pitches.length === 0 ? (
-        <div className="text-center text-gray-400 mt-20">
-          <p>No pitches found.</p>
-          <button
-            onClick={() => navigate("/create")}
-            className="mt-4 px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition"
-          >
-            Create Your First Pitch
-          </button>
-        </div>
+        <p className="text-gray-400 text-center">No pitches yet. Create one!</p>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {pitches.map((pitch) => (
             <div
               key={pitch.id}
-              onClick={() =>
-                navigate(`/pitch/${pitch.id}`, { state: { pitch } })
-              }
-              className="bg-gray-900 border border-gray-800 rounded-xl p-5 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-900/20 transition cursor-pointer"
+              className="bg-gray-800 p-5 rounded-lg shadow-lg hover:shadow-xl transition"
             >
-              <h2 className="text-xl font-semibold mb-2 text-white">
+              <h2 className="text-xl font-semibold mb-2">
                 {pitch.name || "Untitled Pitch"}
               </h2>
-              <p className="text-gray-400 text-sm line-clamp-2">
-                {pitch.tagline || "No tagline available"}
-              </p>
-              <p className="text-xs text-gray-500 mt-3">
+              <p className="text-gray-400 text-sm mb-3">{pitch.tagline || "No tagline"}</p>
+
+              <p className="text-gray-500 text-xs mb-4">
                 {pitch.createdAt?.seconds
                   ? new Date(pitch.createdAt.seconds * 1000).toLocaleDateString()
                   : "Unknown date"}
               </p>
+
+              <div className="flex gap-2">
+                <button
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-sm"
+                  onClick={() => navigate(`/pitch/${pitch.id}`, { state: { pitch } })}
+                >
+                  View Pitch
+                </button>
+                <button
+                  className="flex-1 bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-lg text-sm"
+                  onClick={() => navigate(`/landing/${pitch.id}`)}
+                >
+                  Generate Landing Page
+                </button>
+              </div>
             </div>
           ))}
         </div>
