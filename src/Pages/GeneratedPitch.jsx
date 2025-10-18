@@ -46,8 +46,9 @@ const GeneratedPitch = () => {
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Generated Pitch</h1>
 
       <div className="bg-white p-6 rounded-lg shadow-md max-w-3xl mx-auto flex flex-col gap-4">
-        <h2 className="text-2xl font-semibold text-gray-900">{displayPitch.name}</h2>
-        <p className="text-gray-600 italic">{displayPitch.tagline}</p>
+        
+        <h2 className="text-2xl font-semibold text-gray-900"><span className="text-sm text-gray-900">Name : </span>{displayPitch.name}</h2>
+        <p className="text-gray-600 italic"><span className="text-sm text-gray-900">tagline : </span>{displayPitch.tagline}</p>
 
         <div className="mt-4">
           <h3 className="font-semibold text-gray-800">Elevator Pitch:</h3>
