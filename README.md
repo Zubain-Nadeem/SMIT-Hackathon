@@ -1,16 +1,36 @@
-# React + Vite
+# 🚀 PitchGen AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+PitchGen AI helps founders instantly turn their startup ideas into polished investor-ready pitches — complete with a name, tagline, elevator pitch, problem, solution, and target audience.  
+It also lets users generate a live **landing page** from each pitch.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧠 Features
 
-## React Compiler
+- ✨ AI-generated startup pitches using Google Gemini
+- 💾 Secure user authentication with Firebase
+- 📄 Save and view previous pitches from your dashboard
+- 🎨 Auto-generate landing pages from your pitches
+- 📤 Export pitches as PDF
+- 🌙 Clean dark mode UI built with Tailwind CSS + React
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Category | Technology |
+|-----------|-------------|
+| Frontend | React, Vite, Tailwind CSS |
+| Backend | Serverless API (Node.js / Vercel Functions) |
+| AI | Google Gemini API |
+| Database & Auth | Firebase |
+| PDF Generation | jsPDF |
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/pitchgen-ai.git
+cd pitchgen-ai
